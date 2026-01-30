@@ -1,4 +1,18 @@
 package com.croppulse.backend.Repos;
 
-public class FarmerRepo {
+import com.croppulse.backend.Model.Farmer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface FarmerRepo extends JpaRepository<Farmer , Long> {
+
+    Page<Farmer> findAll(Pageable pageable);
+    List<Farmer> findByState(String state);
+    List<Farmer> findByVillage(String village);
+    Optional<Farmer> findByEmail(String email);
+
 }

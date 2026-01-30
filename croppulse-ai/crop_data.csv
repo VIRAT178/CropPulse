@@ -1,0 +1,9 @@
+state,soilType,landSize,recommendedCrop
+MP,Black,2.0,Soybean
+MP,Black,4.0,Soybean
+MP,Red,2.5,Wheat
+UP,Alluvial,3.0,Wheat
+Punjab,Alluvial,5.0,Rice
+MH,Black,3.5,Cotton
+MH,Black,2.0,Soybean
+UP,Red,1.5,Mustard
