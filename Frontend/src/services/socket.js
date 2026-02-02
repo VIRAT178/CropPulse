@@ -1,7 +1,13 @@
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:8080';
+const RAW_SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:8080';
+const SOCKET_URL = (() => {
+  if (typeof window !== 'undefined' && window.location?.protocol === 'https:') {
+    return RAW_SOCKET_URL.replace(/^http:\/\//i, 'https://');
+  }
+  return RAW_SOCKET_URL;
+})();
 const WS_ENDPOINT = `${SOCKET_URL}/ws`;
 
 class SocketService {
