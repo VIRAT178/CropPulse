@@ -7,6 +7,10 @@ import numpy as np
 
 app = FastAPI(title="CropPulse AI Service")
 
+@app.get("/")
+def root():
+    return {"status": "CropPulse backend running"}
+    
 BASE_DIR = Path(__file__).resolve().parent
 
 
