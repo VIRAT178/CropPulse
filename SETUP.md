@@ -52,6 +52,8 @@ MAIL_PASSWORD=your_app_password
 JWT_SECRET=your_secret_key
 ```
 
+The main backend configuration now expects `MONGODB_URI` to be set in the environment, so make sure your local shell or deployment platform provides it before starting Spring Boot.
+
 **Important**: For Gmail, use an [App Password](https://support.google.com/accounts/answer/185833) instead of your regular password.
 
 Set environment variables:
@@ -69,6 +71,8 @@ mvn clean install
 mvn spring-boot:run
 # Runs on http://localhost:8080
 ```
+
+For Render or any other hosted environment, set `MONGODB_URI` to your Atlas or managed MongoDB connection string instead of relying on a localhost fallback.
 
 ### 3. AI Service Setup (Python)
 
