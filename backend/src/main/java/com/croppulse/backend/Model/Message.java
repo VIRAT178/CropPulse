@@ -1,37 +1,40 @@
 package com.croppulse.backend.Model;
 
-import jakarta.persistence.*;
 import java.time.Instant;
 
-@Entity
-@Table(name = "messages")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Document(collection = "messages")
 public class Message {
+
+    public static final String SEQUENCE_NAME = "messages_sequence";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "conversation_id")
+    @Field("conversationId")
     private String conversationId;
 
-    @Column(name = "sender_id")
+    @Field("senderId")
     private Long senderId;
 
-    @Column(name = "sender_type")
+    @Field("senderType")
     private String senderType; // "FARMER" or "BUYER"
 
-    @Column(name = "recipient_id")
+    @Field("recipientId")
     private Long recipientId;
 
-    @Column(name = "recipient_type")
+    @Field("recipientType")
     private String recipientType; // "FARMER" or "BUYER"
 
-    @Column(name = "content", columnDefinition = "TEXT")
+    @Field("content")
     private String content;
 
-    @Column(name = "timestamp")
+    @Field("timestamp")
     private Instant timestamp;
 
-    @Column(name = "is_read")
     private Boolean isRead = false;
 
     public Message() {}

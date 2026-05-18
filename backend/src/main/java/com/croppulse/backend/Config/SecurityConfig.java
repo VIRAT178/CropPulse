@@ -50,7 +50,6 @@ public class SecurityConfig {
                 .requestMatchers("/", "/health", "/actuator/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/ws/**").permitAll()
-                .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/farmers/me").authenticated()
                 .requestMatchers("/farmers/**").permitAll()
                 .requestMatchers("/recommendations/**").authenticated()

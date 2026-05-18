@@ -30,7 +30,7 @@ public class RecommendationService {
         rec.setExpectedPrice(aiRecommendationDTO.getExpectedPrice());
         rec.setRiskLevel(aiRecommendationDTO.getRiskLevel());
         rec.setConfidenceScore(aiRecommendationDTO.getConfidenceScore());
-        rec.setFarmer(farmer);
+        rec.setFarmerId(farmer.getId());
 
         return recommendationRepo.save(rec);
     }

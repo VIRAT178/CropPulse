@@ -11,7 +11,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,7 +33,6 @@ public class NotificationService {
     /**
      * Create a new notification for a user
      */
-    @Transactional
     public Notification createNotification(Long userId, String userType, String type, String message, String senderName, Long relatedMessageId) {
         Notification notification = new Notification(userId, userType, type, message);
         notification.setSenderName(senderName);
@@ -45,7 +43,6 @@ public class NotificationService {
     /**
      * Create notification when a farmer receives a message from a buyer
      */
-    @Transactional
     public Notification notifyFarmerOfNewMessage(Long farmerId, String buyerName, String messagePreview) {
         String message = String.format("New message from %s: %s", buyerName, 
             messagePreview.length() > 50 ? messagePreview.substring(0, 50) + "..." : messagePreview);
@@ -55,7 +52,6 @@ public class NotificationService {
     /**
      * Create notification when a buyer receives a message from a farmer
      */
-    @Transactional
     public Notification notifyBuyerOfNewMessage(Long buyerId, String farmerName, String messagePreview) {
         String message = String.format("New message from %s: %s", farmerName, 
             messagePreview.length() > 50 ? messagePreview.substring(0, 50) + "..." : messagePreview);
@@ -86,7 +82,6 @@ public class NotificationService {
     /**
      * Mark notification as read and delete it
      */
-    @Transactional
     public void markAsRead(Long notificationId) {
         notificationRepository.findById(notificationId).ifPresent(notification -> {
             notification.setIsRead(true);
@@ -97,7 +92,6 @@ public class NotificationService {
     /**
      * Mark all notifications as read for a user and delete them
      */
-    @Transactional
     public void markAllAsRead(Long userId, String userType) {
         List<Notification> unreadNotifications = getUnreadNotifications(userId, userType);
         notificationRepository.deleteAll(unreadNotifications);
@@ -106,7 +100,6 @@ public class NotificationService {
     /**
      * Delete a specific notification
      */
-    @Transactional
     public void deleteNotification(Long notificationId) {
         notificationRepository.deleteById(notificationId);
     }
@@ -132,7 +125,6 @@ public class NotificationService {
      * Runs every 15 minutes
      */
     @Scheduled(fixedRate = 900000) // 15 minutes in milliseconds
-    @Transactional
     public void sendEmailForOldUnreadNotifications() {
         LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
         List<Notification> oldUnreadNotifications = notificationRepository
@@ -189,7 +181,6 @@ public class NotificationService {
      * Delete old read notifications (cleanup - optional)
      */
     @Scheduled(cron = "0 0 2 * * ?") // Run at 2 AM daily
-    @Transactional
     public void cleanupOldNotifications() {
         LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
         List<Notification> oldNotifications = notificationRepository

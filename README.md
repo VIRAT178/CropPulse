@@ -29,7 +29,7 @@ A full-stack application that connects farmers and buyers while providing AI-pow
 
 **Backend**
 - Spring Boot 3.x
-- PostgreSQL database
+- MongoDB database
 - Spring Security with JWT
 - Spring WebSocket
 - Maven for build management
@@ -45,7 +45,7 @@ A full-stack application that connects farmers and buyers while providing AI-pow
 ### Prerequisites
 - Node.js 16+
 - Java 11+
-- PostgreSQL
+- MongoDB
 - Python 3.8+
 
 ### Installation

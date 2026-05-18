@@ -1,33 +1,32 @@
 package com.croppulse.backend.Model;
 
-import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.Instant;
 
 @Data
-@Entity
-@Table(name = "users")
+@Document(collection = "users")
 public class User {
+
+    public static final String SEQUENCE_NAME = "users_sequence";
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Indexed(unique = true)
     private String email;
 
-    @Column(nullable = false)
     private String password; // Hashed
 
-    @Column(nullable = false)
     private String name;
 
     private String mobile;
 
     private String state;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private UserRole role; // FARMER, BUYER, ADMIN
 
     // Farmer-specific

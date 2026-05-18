@@ -3,7 +3,7 @@
 ## Prerequisites
 - Node.js (v16 or higher)
 - Java 11+ (for backend)
-- PostgreSQL (for database)
+- MongoDB (for database)
 - Python 3.8+ (for AI service)
 
 ## Project Structure
@@ -45,8 +45,7 @@ cd backend
 
 Create `src/main/resources/application-local.properties`:
 ```properties
-spring.datasource.username=your_username
-spring.datasource.password=your_password
+spring.data.mongodb.uri=mongodb://localhost:27017/croppulse
 GROQ_API_KEY=your_groq_api_key
 MAIL_USERNAME=your_email@gmail.com
 MAIL_PASSWORD=your_app_password
@@ -60,7 +59,7 @@ Set environment variables:
 set GROQ_API_KEY=your_key
 set MAIL_USERNAME=your_email@gmail.com
 set MAIL_PASSWORD=your_app_password
-set DB_PASSWORD=your_db_password
+set MONGODB_URI=mongodb://localhost:27017/croppulse
 set JWT_SECRET=your_secret_key
 ```
 
@@ -92,11 +91,7 @@ uvicorn main:app --reload --port 8000
 
 ## Database Setup
 
-```sql
-CREATE DATABASE croppulse_db;
-```
-
-The backend will auto-create tables using Hibernate DDL.
+Start MongoDB locally or via Docker, then create a `croppulse` database by connecting once through the app or shell. The backend will auto-create collections as documents are saved.
 
 ## Development Workflow
 
@@ -139,8 +134,8 @@ Each service can be containerized. Docker files should be added for production d
 ## Troubleshooting
 
 **Backend won't start**:
-- Check PostgreSQL is running
-- Verify database credentials in application.properties
+- Check MongoDB is running
+- Verify `MONGODB_URI` is set correctly
 - Ensure environment variables are set
 
 **Frontend can't connect to API**:

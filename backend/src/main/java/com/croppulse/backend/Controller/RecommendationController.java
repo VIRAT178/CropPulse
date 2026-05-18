@@ -112,7 +112,7 @@ public class RecommendationController {
             }
 
             Recommendation recommendation = recommendationOpt.get();
-            Farmer farmer = recommendation.getFarmer();
+            Farmer farmer = recommendation.getFarmerId() == null ? null : farmerRepo.findById(recommendation.getFarmerId()).orElse(null);
 
             if (farmer == null || farmer.getEmail() == null) {
                 return new ApiResponse<>(false, "Farmer email not found", null);

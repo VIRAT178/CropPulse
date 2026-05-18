@@ -1,51 +1,46 @@
 package com.croppulse.backend.Model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "notifications")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Document(collection = "notifications")
 public class Notification {
 
+    public static final String SEQUENCE_NAME = "notifications_sequence";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Field("userId")
     private Long userId;
 
-    @Column(nullable = false)
+    @Field("userType")
     private String userType; // FARMER or BUYER
 
-    @Column(nullable = false)
+    @Field("type")
     private String type; // MESSAGE, RECOMMENDATION, SYSTEM
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Field("message")
     private String message;
 
-    @Column(nullable = false)
     private Boolean isRead = false;
 
-    @Column(nullable = false)
     private Boolean emailSent = false;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     private LocalDateTime readAt;
 
     private LocalDateTime emailSentAt;
 
-    @Column
+    @Field("relatedMessageId")
     private Long relatedMessageId; // If related to a chat message
 
-    @Column
+    @Field("senderName")
     private String senderName; // Name of the message sender
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
 
     // Constructors
     public Notification() {}

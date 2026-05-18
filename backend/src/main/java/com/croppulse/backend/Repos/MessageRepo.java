@@ -1,10 +1,10 @@
 package com.croppulse.backend.Repos;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.croppulse.backend.Model.Message;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
-public interface MessageRepo extends JpaRepository<Message, Long> {
+public interface MessageRepo extends MongoRepository<Message, Long> {
     
     List<Message> findByConversationIdOrderByTimestampAsc(String conversationId);
     
